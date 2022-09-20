@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="quick_creation_config_form" model="ir.ui.view">
+            <field name="name">quick.creation.config.form</field>
+            <field name="model">quick.creation.config</field>
+            <field name="arch" type="xml">
+                <form string="Quick creation/update">
+                    <header>
+                        <button string="Create rule" type="action"
+                                name="%(action_create_model_config)d"
+                                context="{'default_creation_config_id': id,'default_quick_create':quick_create,'default_quick_write':quick_write}"
+                                class="oe_highlight"
+                        />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_view_config_lines"
+                                    class="oe_stat_button"
+                                    icon="fa-list"
+                                    attrs="{'invisible': [('quick_creation_model_ids_count', '=', 0)]}">
+                                <field name="quick_creation_model_ids_count" widget="statinfo" string="Rules"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="quick_create" widget="boolean_toggle"/>
+                            </group>
+                            <group>
+                                <field name="active" widget="boolean_toggle"/>
+                                <field name="quick_write" widget="boolean_toggle"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="quick_creation_config_tree" model="ir.ui.view">
+            <field name="name">quick.creation.config.tree</field>
+            <field name="model">quick.creation.config</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <tree string="Quick creation/update" decoration-muted="active==False" sample="1">
+                    <field name="name"/>
+                    <field name="active" widget="boolean_toggle"/>
+                    <field name="quick_create" widget="boolean_toggle"/>
+                    <field name="quick_write" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="quick_creation_config_search" model="ir.ui.view">
+            <field name="name">quick.creation.config.search</field>
+            <field name="model">quick.creation.config</field>
+            <field name="arch" type="xml">
+                <search string="Search Quick creation/update">
+                    <field name="name"/>
+                    <field name="quick_creation_model_ids"/>
+                    <filter name="active_details" string="Active" domain="[('active', '=', True)]"/>
+                    <filter name="archived_details" string="Archived" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="quick_creation_config_line_form" model="ir.ui.view">
+            <field name="name">quick.creation.config.line.form</field>
+            <field name="model">quick.creation.config.line</field>
+            <field name="arch" type="xml">
+                <form string="Quick rules">
+                    <header/>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <group>
+                            <group>
+                                <field name="creation_config_id" invisible="1"/>
+                                <field name="model_id"/>
+                                <field name="quick_create" widget="boolean_toggle"/>
+                                <field name="user_ids" options="{'no_create': True}"
+                                   widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="active" widget="boolean_toggle"/>
+                                <field name="quick_write" widget="boolean_toggle"/>
+                                <field name="group_ids" options="{'no_create': True}"
+                                   widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="quick_creation_config_line_tree" model="ir.ui.view">
+            <field name="name">quick.creation.config.line.tree</field>
+            <field name="model">quick.creation.config.line</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <tree string="Quick rules" decoration-muted="active==False" sample="1">
+                    <field name="model_id"/>
+                    <field name="quick_create" widget="boolean_toggle"/>
+                    <field name="quick_write" widget="boolean_toggle"/>
+                    <field name="active"/>
+                    <field name="user_ids" options="{'no_create': True}"
+                           widget="many2many_tags"/>
+                    <field name="group_ids" options="{'no_create': True}"
+                           widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="quick_creation_config_line_search" model="ir.ui.view">
+            <field name="name">quick.creation.config.line.search</field>
+            <field name="model">quick.creation.config.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Quick rules">
+                    <field name="model_id"/>
+                    <field name="user_ids"/>
+                    <field name="group_ids"/>
+                    <filter name="active_details" string="Active details" domain="[('active', '=', True)]"/>
+                    <filter name="archived_details" string="Archived details" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Model" name="group_model_id" context="{'group_by' : 'model_id'}"/>
+                        <filter string="User" name="group_user_ids" context="{'group_by' : 'user_ids'}"/>
+                        <filter string="Group" name="group_group_ids" context="{'group_by' : 'group_ids'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_create_model_config" model="ir.ui.view">
+        <field name="name">Create model quick creation</field>
+        <field name="model">create.model.config</field>
+        <field name="arch" type="xml">
+            <form string="Models quick creation settings">
+                <p>
+                Use this assistant to add models quick creation/update.
+                </p>
+                <group>
+                    <field name="creation_config_id" invisible="1"/>
+                    <field name="model_ids" options="{'no_create': True}"
+                           widget="many2many_tags"/>
+                </group>
+                <group>
+                    <group>
+                        <field name="quick_create" widget="boolean_toggle"/>
+                        <field name="user_ids" options="{'no_create': True}"
+                           widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="quick_write" widget="boolean_toggle"/>
+                        <field name="group_ids" options="{'no_create': True}"
+                           widget="many2many_tags"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="apply"
+                        string="Confirm"
+                        type="object"
+                        class="btn-primary"/>
+                    <button string="Discard"
+                        class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_create_model_config" model="ir.actions.act_window">
+        <field name="name">Models quick creation settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">create.model.config</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_create_model_config"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

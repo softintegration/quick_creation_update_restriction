@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <menuitem action="quick_creation_config_action"
+                  id="menu_quick_creation_config"
+                  name="Quick creation/update rules"
+                  parent="base.menu_security"
+                  groups="quick_creation_update_restriction.group_update_quick_creation_config"/>
+
+</odoo>

@@ -134,13 +134,16 @@ class QuickCreationConfigLine(models.Model):
     # we have to deal with cache in the case of update or delete
     @api.model
     def create(self, vals):
+        res = super(QuickCreationConfigLine, self).create(vals)
         self.creation_config_id._user_can_quick_create_model.clear_cache(self)
-        return super(QuickCreationConfigLine, self).create(vals)
+        return res
 
     def write(self, vals):
+        res = super(QuickCreationConfigLine, self).write(vals)
         self.creation_config_id._user_can_quick_create_model.clear_cache(self)
-        return super(QuickCreationConfigLine, self).write(vals)
+        return res
 
     def unlink(self):
+        res = super(QuickCreationConfigLine, self).unlink()
         self.creation_config_id._user_can_quick_create_model.clear_cache(self)
-        return super(QuickCreationConfigLine, self).unlink()
+        return res

@@ -2,7 +2,7 @@
 
 {
     'name': 'Quick creation/update restriction',
-    'version': '1.0.1.1',
+    'version': '1.0.1.2',
     'author':'Soft-integration',
     'category': 'Security/Access rights',
     'summary': 'Add restriction to quick creation of records',

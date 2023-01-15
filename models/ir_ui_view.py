@@ -19,7 +19,7 @@ class IrUiView(models.Model):
             return
         if node.get('name'):
             field = name_manager.model._fields.get(node.get('name'))
-            if field.type in ('many2one', 'many2many'):
+            if field and field.type in ('many2one', 'many2many'):
                 comodel = self.env[field.comodel_name].sudo(False)
                 can_create = comodel.check_access_rights('create', raise_exception=False)
                 can_write = comodel.check_access_rights('write', raise_exception=False)
